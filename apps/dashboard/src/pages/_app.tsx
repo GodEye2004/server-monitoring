@@ -1,18 +1,16 @@
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import { AuthProvider } from '../lib/auth-context';
+import './styles.scss';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <AuthProvider>
       <Head>
-        <title>Welcome to dashboard!</title>
+        <title>Server Monitor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
-    </>
+      <Component {...pageProps} />
+    </AuthProvider>
   );
 }
-
-export default CustomApp;

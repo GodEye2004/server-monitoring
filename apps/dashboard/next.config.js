@@ -2,8 +2,18 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Next.js options go here
-  // See: https://nextjs.org/docs/app/api-reference/config/next-config-js
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:3000/api/:path*',
+      },
+      {
+        source: '/auth/:path*',
+        destination: 'http://localhost:3000/auth/:path*',
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

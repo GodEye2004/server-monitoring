@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -10,4 +8,32 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique @db.VarChar(50)
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  projects Project[]
+
+  @@map("users")
+}
+
+model Project {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(100)
+  gitUrl       String   @map("git_url") @db.VarChar(500)
+  dockerPath   String?  @map("docker_path") @db.VarChar(200)
+  containerName String? @map("container_name") @db.VarChar(100)
+  status       String   @default("stopped") @db.VarChar(20)
+  port         Int?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  userId Int @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+
+  @@map("projects")
 }
