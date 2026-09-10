@@ -95,6 +95,13 @@
           }
         }
       },
+      "prisma-generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma generate",
+          "cwd": "{workspaceRoot}"
+        }
+      },
       "test": {
         "options": {
           "passWithNoTests": true
@@ -103,6 +110,10 @@
     }
   },
   "dependencies": {
+    "@prisma/client": "^7.10.0",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.0"
   }
 }
